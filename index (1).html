@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstudaFácil — Aprender é divertido!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #FFF9F0; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: #fff;
+      border-bottom: 2px solid #F0E8D8;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; position: sticky; top: 0; z-index: 100;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Fredoka One', sans-serif;
+      font-size: 22px; color: #5B3FA6;
+    }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, #FF9F43, #FF6B6B);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; color: #fff;
+    }
+    .stars-badge {
+      display: flex; align-items: center; gap: 4px;
+      background: #FFF3CD; border: 1.5px solid #FFD43B;
+      border-radius: 20px; padding: 4px 10px;
+      font-size: 13px; font-weight: 700; color: #B7850A;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #7C5CBF 0%, #5B3FA6 50%, #3D2E8A 100%);
+      padding: 36px 24px 48px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -40px; right: -40px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+    .hero::after {
+      content: ''; position: absolute; bottom: -60px; left: -30px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .welcome-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 13px; color: #E8D5FF; font-weight: 600; margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Fredoka One', sans-serif;
+      font-size: 30px; color: #fff; line-height: 1.2; margin-bottom: 10px;
+    }
+    .hero p { font-size: 15px; color: #C9B3F0; line-height: 1.6; margin-bottom: 20px; }
+    .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-primary {
+      background: #FF9F43; color: #fff; border: none; border-radius: 12px;
+      padding: 11px 22px; font-size: 14px; font-weight: 800; cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      box-shadow: 0 4px 12px rgba(255,159,67,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255,159,67,0.5); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.15); color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.3); border-radius: 12px;
+      padding: 11px 22px; font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: 'Nunito', sans-serif; transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── PROGRESSO ── */
+    .progress-section { padding: 20px 24px 0; }
+    .progress-card {
+      background: #fff; border: 1.5px solid #EDE0FF; border-radius: 16px;
+      padding: 16px 18px; display: flex; align-items: center; gap: 14px;
+    }
+    .progress-icon {
+      width: 44px; height: 44px; border-radius: 12px; background: #EDE0FF;
+      display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0;
+    }
+    .progress-info { flex: 1; }
+    .progress-label { font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .progress-title { font-size: 15px; font-weight: 700; color: #2D1B6B; margin: 2px 0 6px; }
+    .progress-bar-bg { background: #EDE0FF; border-radius: 10px; height: 8px; }
+    .progress-bar-fill { background: linear-gradient(90deg, #7C5CBF, #B388FF); border-radius: 10px; height: 8px; width: 65%; }
+    .progress-pct { font-size: 12px; font-weight: 700; color: #7C5CBF; margin-top: 4px; }
+
+    /* ── DISCIPLINAS ── */
+    .section-title {
+      font-family: 'Fredoka One', sans-serif; font-size: 20px; color: #2D1B6B;
+      padding: 24px 24px 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-title .badge {
+      background: #EDE0FF; color: #5B3FA6; font-size: 11px; font-weight: 700;
+      font-family: 'Nunito', sans-serif; padding: 3px 8px; border-radius: 8px;
+    }
+    .subjects-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 12px; padding: 0 24px;
+    }
+    .subject-card {
+      border-radius: 18px; padding: 18px 16px; cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: 2px solid transparent;
+    }
+    .subject-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+    .subject-emoji { font-size: 32px; margin-bottom: 8px; display: block; }
+    .subject-name { font-family: 'Fredoka One', sans-serif; font-size: 16px; color: #fff; margin-bottom: 2px; }
+    .subject-chapters { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; }
+    .subject-progress-bar { height: 4px; background: rgba(255,255,255,0.25); border-radius: 4px; margin-top: 10px; }
+    .subject-progress-fill { height: 4px; background: rgba(255,255,255,0.8); border-radius: 4px; }
+    .mat  { background: linear-gradient(135deg, #FF6B6B, #FF4757); }
+    .port { background: linear-gradient(135deg, #48CAE4, #0077B6); }
+    .cien { background: linear-gradient(135deg, #56CF7A, #2D9B4A); }
+    .hist { background: linear-gradient(135deg, #FFB347, #FF8C00); }
+    .geo  { background: linear-gradient(135deg, #A29BFE, #6C5CE7); }
+    .art  { background: linear-gradient(135deg, #FD79A8, #E84393); }
+
+    /* ── PAINEL DE CAPÍTULOS ── */
+    .chapters-panel {
+      background: #fff; border: 1.5px solid #EDE0FF; border-radius: 18px;
+      margin: 16px 24px 0; overflow: hidden; display: none;
+    }
+    .chapters-panel.open { display: block; }
+    .chapters-header {
+      padding: 16px 18px; border-bottom: 1px solid #F3EEFF;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .chapters-header h3 {
+      font-family: 'Fredoka One', sans-serif; font-size: 17px; color: #2D1B6B; flex: 1;
+    }
+    .close-btn {
+      background: #F3EEFF; border: none; border-radius: 8px;
+      width: 28px; height: 28px; cursor: pointer; font-size: 16px;
+      color: #7C5CBF; display: flex; align-items: center; justify-content: center;
+    }
+    .chapter-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 18px; border-bottom: 1px solid #FAF6FF; cursor: pointer;
+      transition: background 0.1s; text-decoration: none;
+    }
+    .chapter-item:last-child { border-bottom: none; }
+    .chapter-item:hover { background: #FAF6FF; }
+    .chapter-num {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .chapter-info { flex: 1; }
+    .chapter-name { font-size: 14px; font-weight: 700; color: #2D1B6B; }
+    .chapter-sub  { font-size: 12px; color: #999; margin-top: 1px; }
+    .chapter-status {
+      font-size: 11px; font-weight: 700; border-radius: 8px; padding: 3px 8px;
+    }
+    .done  { background: #E8F8EE; color: #2D9B4A; }
+    .doing { background: #FFF3E0; color: #E67E00; }
+    .todo  { background: #F3EEFF; color: #7C5CBF; }
+
+    /* ── ACESSO RÁPIDO ── */
+    .quick-actions { padding: 20px 24px 8px; }
+    .qa-title {
+      font-family: 'Fredoka One', sans-serif; font-size: 18px; color: #2D1B6B;
+      margin-bottom: 12px;
+    }
+    .qa-row { display: flex; gap: 10px; }
+    .qa-card {
+      flex: 1; border-radius: 14px; padding: 14px; cursor: pointer;
+      transition: transform 0.15s; display: flex; flex-direction: column; gap: 6px;
+    }
+    .qa-card:hover { transform: translateY(-2px); }
+    .qa-card.quiz  { background: #FFF0E6; border: 1.5px solid #FFD4B2; }
+    .qa-card.video { background: #E6F3FF; border: 1.5px solid #B2D4FF; }
+    .qa-card.flash { background: #E6FAF0; border: 1.5px solid #B2F0CC; }
+    .qa-icon  { font-size: 24px; }
+    .qa-label { font-size: 13px; font-weight: 800; color: #2D1B6B; }
+    .qa-desc  { font-size: 11px; color: #888; }
+
+    /* ── STREAK ── */
+    .streak-bar {
+      margin: 8px 24px 32px;
+      background: linear-gradient(135deg, #FFD43B, #FF9F43);
+      border-radius: 14px; padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .streak-flame { font-size: 28px; }
+    .streak-text h4 { font-size: 15px; font-weight: 800; color: #7A3B00; margin-bottom: 1px; }
+    .streak-text p  { font-size: 12px; color: #A05000; }
+    .streak-days { margin-left: auto; text-align: center; }
+    .streak-days .num { font-family: 'Fredoka One', sans-serif; font-size: 28px; color: #7A3B00; line-height: 1; }
+    .streak-days .lbl { font-size: 10px; font-weight: 700; color: #A05000; text-transform: uppercase; }
+
+    /* ── RODAPÉ ── */
+    footer {
+      text-align: center; padding: 20px 24px;
+      border-top: 1px solid #F0E8D8;
+      font-size: 12px; color: #AAA;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo">🎓 EstudaFácil</div>
+    <div class="topbar-right">
+      <div class="stars-badge">⭐ 1.240</div>
+      <div class="avatar">AL</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="welcome-pill">👋 Olá, Aluno!</div>
+      <h1>Pronto para<br>aprender hoje?</h1>
+      <p>Escolha uma disciplina, estude os capítulos e treine com quizzes divertidos!</p>
+      <div class="hero-btns">
+        <button class="btn-primary">🎯 Começar Quiz</button>
+        <button class="btn-secondary">▶ Ver Vídeo-aulas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESSO -->
+  <div class="progress-section">
+    <div class="progress-card">
+      <div class="progress-icon">📖</div>
+      <div class="progress-info">
+        <div class="progress-label">Continuando de onde parou</div>
+        <div class="progress-title">Matemática — Cap. 3: Frações</div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+        <div class="progress-pct">65% concluído</div>
+      </div>
+      <button class="btn-primary" style="padding: 8px 16px; font-size: 13px;">Continuar</button>
+    </div>
+  </div>
+
+  <!-- DISCIPLINAS -->
+  <div class="section-title">📚 Disciplinas <span class="badge">6 matérias</span></div>
+  <div class="subjects-grid">
+    <div class="subject-card mat" onclick="openChapters('mat')">
+      <span class="subject-emoji">🔢</span>
+      <div class="subject-name">Matemática</div>
+      <div class="subject-chapters">8 capítulos</div>
+      <div class="subject-progress-bar"><div class="subject-progress-fill" style="width:45%"></div></div>
+    </div>
+    <div class="subject-card port" onclick="openChapters('port')">
+      <span class="subject-emoji">📝</span>
+      <div class="subject-name">Português</div>
+      <div class="subject-chapters">7 capítulos</div>
+      <div class="subject-progress-bar"><div class="subject-progress-fill" style="width:30%"></div></div>
+    </div>
+    <div class="subject-card cien" onclick="openChapters('cien')">
+      <span class="subject-emoji">🔬</span>
+      <div class="subject-name">Ciências</div>
+      <div class="subject-chapters">6 capítulos</div>
+      <div class="subject-progress-bar"><div class="subject-progress-fill" style="width:60%"></div></div>
+    </div>
+    <div class="subject-card hist" onclick="openChapters('hist')">
+      <span class="subject-emoji">🏛️</span>
+      <div class="subject-name">História</div>
+      <div class="subject-chapters">5 capítulos</div>
+      <div class="subject-progress-bar"><div class="subject-progress-fill" style="width:20%"></div></div>
+    </div>
+    <div class="subject-card geo" onclick="openChapters('geo')">
+      <span class="subject-emoji">🌍</span>
+      <div class="subject-name">Geografia</div>
+      <div class="subject-chapters">6 capítulos</div>
+      <div class="subject-progress-bar"><div class="subject-progress-fill" style="width:10%"></div></div>
+    </div>
+    <div class="subject-card art" onclick="openChapters('art')">
+      <span class="subject-emoji">🎨</span>
+      <div class="subject-name">Artes</div>
+      <div class="subject-chapters">4 capítulos</div>
+      <div class="subject-progress-bar"><div class="subject-progress-fill" style="width:75%"></div></div>
+    </div>
+  </div>
+
+  <!-- PAINEL DE CAPÍTULOS -->
+  <div class="chapters-panel" id="chaptersPanel">
+    <div class="chapters-header">
+      <span id="chapSubjIcon" style="font-size:20px"></span>
+      <h3 id="chapSubjName"></h3>
+      <button class="close-btn" onclick="closeChapters()">✕</button>
+    </div>
+    <div id="chaptersList"></div>
+  </div>
+
+  <!-- ACESSO RÁPIDO -->
+  <div class="quick-actions">
+    <div class="qa-title">⚡ Acesso Rápido</div>
+    <div class="qa-row">
+      <div class="qa-card quiz">
+        <div class="qa-icon">🎯</div>
+        <div class="qa-label">Quiz Rápido</div>
+        <div class="qa-desc">10 perguntas</div>
+      </div>
+      <div class="qa-card video">
+        <div class="qa-icon">📹</div>
+        <div class="qa-label">Vídeo-aulas</div>
+        <div class="qa-desc">Assistir agora</div>
+      </div>
+      <div class="qa-card flash">
+        <div class="qa-icon">🃏</div>
+        <div class="qa-label">Flashcards</div>
+        <div class="qa-desc">Revisar rápido</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STREAK -->
+  <div class="streak-bar">
+    <div class="streak-flame">🔥</div>
+    <div class="streak-text">
+      <h4>Sequência de estudos!</h4>
+      <p>Continue assim, você está incrível!</p>
+    </div>
+    <div class="streak-days">
+      <div class="num">7</div>
+      <div class="lbl">dias</div>
+    </div>
+  </div>
+
+  <footer>© 2026 EstudaFácil · Feito com 💜 para crianças do Ensino Fundamental</footer>
+
+  <script>
+    // ── DADOS DAS DISCIPLINAS ──
+    // Para adicionar ou editar capítulos, altere este objeto:
+    const chaptersData = {
+      mat: {
+        icon: '🔢', name: 'Matemática',
+        chapters: [
+          { n: 1, name: 'Números de 1 a 100',  sub: 'Contagem e ordem',        status: 'done'  },
+          { n: 2, name: 'Adição e Subtração',   sub: 'Operações básicas',       status: 'done'  },
+          { n: 3, name: 'Frações',              sub: 'Metade, terço, quarto',   status: 'doing' },
+          { n: 4, name: 'Multiplicação',        sub: 'Tabuadas',                status: 'todo'  },
+          { n: 5, name: 'Divisão',              sub: 'Partilha igual',          status: 'todo'  },
+        ]
+      },
+      port: {
+        icon: '📝', name: 'Português',
+        chapters: [
+          { n: 1, name: 'Alfabeto e Vogais',    sub: 'Letras e sons',           status: 'done'  },
+          { n: 2, name: 'Sílabas',              sub: 'Separação silábica',      status: 'done'  },
+          { n: 3, name: 'Substantivos',         sub: 'Nomes de coisas',         status: 'doing' },
+          { n: 4, name: 'Verbos',               sub: 'Ação e estado',           status: 'todo'  },
+        ]
+      },
+      cien: {
+        icon: '🔬', name: 'Ciências',
+        chapters: [
+          { n: 1, name: 'Corpo Humano',         sub: 'Órgãos e funções',        status: 'done'  },
+          { n: 2, name: 'Animais',              sub: 'Tipos e habitats',        status: 'done'  },
+          { n: 3, name: 'Plantas',              sub: 'Partes e funções',        status: 'done'  },
+          { n: 4, name: 'Água e Solo',          sub: 'Recursos naturais',       status: 'doing' },
+          { n: 5, name: 'Sistema Solar',        sub: 'Planetas e estrelas',     status: 'todo'  },
+        ]
+      },
+      hist: {
+        icon: '🏛️', name: 'História',
+        chapters: [
+          { n: 1, name: 'Minha Família',        sub: 'História pessoal',        status: 'done'  },
+          { n: 2, name: 'Minha Cidade',         sub: 'Comunidade local',        status: 'doing' },
+          { n: 3, name: 'Brasil Colonial',      sub: 'Descobrimento',           status: 'todo'  },
+        ]
+      },
+      geo: {
+        icon: '🌍', name: 'Geografia',
+        chapters: [
+          { n: 1, name: 'Pontos Cardeais',      sub: 'Norte, sul, leste, oeste',status: 'doing' },
+          { n: 2, name: 'Mapas',                sub: 'Como ler um mapa',        status: 'todo'  },
+          { n: 3, name: 'Biomas do Brasil',     sub: 'Florestas e cerrados',    status: 'todo'  },
+        ]
+      },
+      art: {
+        icon: '🎨', name: 'Artes',
+        chapters: [
+          { n: 1, name: 'Cores Primárias',      sub: 'Mistura de cores',        status: 'done'  },
+          { n: 2, name: 'Formas Geométricas',   sub: 'Desenho e arte',          status: 'done'  },
+          { n: 3, name: 'Artistas Brasileiros', sub: 'Tarsila do Amaral',       status: 'done'  },
+          { n: 4, name: 'Música e Ritmo',       sub: 'Sons e instrumentos',     status: 'doing' },
+        ]
+      }
+    };
+
+    const statusLabel = { done: '✓ Feito', doing: '▶ Fazendo', todo: '+ Novo' };
+    const statusClass = { done: 'done', doing: 'doing', todo: 'todo' };
+    const numColors   = { mat:'#FF4757', port:'#0077B6', cien:'#2D9B4A', hist:'#E67E00', geo:'#6C5CE7', art:'#E84393' };
+    const numBg       = { mat:'#FFE0E0', port:'#DCF0FF', cien:'#DFFAEB', hist:'#FFF0D0', geo:'#EDE0FF', art:'#FFE0F2' };
+
+    function openChapters(subj) {
+      const data = chaptersData[subj];
+      document.getElementById('chapSubjIcon').textContent = data.icon;
+      document.getElementById('chapSubjName').textContent = data.name;
+      document.getElementById('chaptersList').innerHTML = data.chapters.map(ch => `
+        <div class="chapter-item">
+          <div class="chapter-num" style="background:${numBg[subj]};color:${numColors[subj]}">${ch.n}</div>
+          <div class="chapter-info">
+            <div class="chapter-name">${ch.name}</div>
+            <div class="chapter-sub">${ch.sub}</div>
+          </div>
+          <span class="chapter-status ${statusClass[ch.status]}">${statusLabel[ch.status]}</span>
+        </div>
+      `).join('');
+      const panel = document.getElementById('chaptersPanel');
+      panel.classList.add('open');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeChapters() {
+      document.getElementById('chaptersPanel').classList.remove('open');
+    }
+  </script>
+</body>
+</html>
